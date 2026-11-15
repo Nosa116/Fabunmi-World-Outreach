@@ -40,7 +40,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="css/slick.css" />
-    <link href="css/tooplate-little-fashion.css?v=2" rel="stylesheet">
+    <link href="css/tooplate-little-fashion.css?v=3" rel="stylesheet">
 </head>
 
 <body>
@@ -55,13 +55,13 @@
 
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
                 <a class="navbar-brand d-flex align-items-center" href="index.html">
                     <img src="images/fwo-green.jpg" alt="Fabunmi World Outreach Logo" style="height: 38px; width: auto;" fetchpriority="high">
                 </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
@@ -85,6 +85,13 @@
                     <div class="d-none d-lg-block">
                         <a href="mailto:info@fabunmiworldoutreach.org" target="_blank" rel="noopener noreferrer" class="btn custom-btn btn-sm">
                             <i class="bi-envelope-fill me-1"></i> Get in Touch
+                        </a>
+                    </div>
+
+                    <!-- Mobile-only CTA -->
+                    <div class="d-lg-none mt-3 pt-3 border-top">
+                        <a href="mailto:info@fabunmiworldoutreach.org" target="_blank" rel="noopener noreferrer" class="btn custom-btn w-100 text-center">
+                            <i class="bi-envelope-fill me-2"></i> Get in Touch
                         </a>
                     </div>
                 </div>
@@ -700,6 +707,47 @@
             }
             window.addEventListener('load', hidePreloader);
             setTimeout(hidePreloader, 2000);
+        })();
+    </script>
+
+    <!-- Mobile Nav Helpers -->
+    <script>
+        (function() {
+            var navbar = document.querySelector('.navbar');
+            var navCollapse = document.getElementById('navbarNav');
+            if (!navbar || !navCollapse) return;
+
+            // Toggle .menu-open class to block Headroom when menu is open
+            navCollapse.addEventListener('show.bs.collapse', function() {
+                navbar.classList.add('menu-open');
+            });
+            navCollapse.addEventListener('hidden.bs.collapse', function() {
+                navbar.classList.remove('menu-open');
+            });
+
+            // Auto-close mobile menu on nav-link click & smooth scroll
+            var navLinks = navCollapse.querySelectorAll('.nav-link');
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    var href = link.getAttribute('href');
+                    // Only auto-close for anchor links on this page
+                    if (href && href.startsWith('#') && href.length > 1) {
+                        e.preventDefault();
+                        var bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
+                        if (bsCollapse) bsCollapse.hide();
+                        var target = document.querySelector(href);
+                        if (target) {
+                            setTimeout(function() {
+                                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }, 350);
+                        }
+                    } else {
+                        // External page links: just close the menu
+                        var bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
+                        if (bsCollapse) bsCollapse.hide();
+                    }
+                });
+            });
         })();
     </script>
 
