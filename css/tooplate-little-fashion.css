@@ -1326,6 +1326,22 @@ button:focus:not(:focus-visible) {
     padding: 12px 0;
   }
 
+  .navbar > .container {
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .navbar-brand {
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .navbar-brand img {
+    max-width: 220px;
+    height: auto !important;
+  }
+
   .navbar-collapse {
     background: var(--white-color);
     border-radius: 12px;
@@ -1379,6 +1395,10 @@ button:focus:not(:focus-visible) {
 }
 
 @media (max-width: 575.98px) {
+  .navbar-brand img {
+    max-width: 180px;
+  }
+
   .slick-slideshow {
     min-height: 480px;
   }
